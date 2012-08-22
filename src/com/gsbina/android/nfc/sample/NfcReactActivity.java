@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class NfcTagViewerActivity extends Activity {
+public class NfcReactActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

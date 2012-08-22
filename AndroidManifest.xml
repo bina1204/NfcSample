@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".NfcTagViewerActivity"
+            android:name=".NfcReactActivity"
             android:label="@string/title_activity_nfc_tag_viewer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
