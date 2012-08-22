@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".NfcReactActivity"
-            android:label="@string/title_activity_nfc_tag_viewer"
+            android:label="@string/title_activity_nfc_react"
             android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
