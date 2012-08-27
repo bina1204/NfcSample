@@ -6,5 +6,7 @@
     <string name="title_activity_nfc_react">NfcReact</string>
     <string name="title_activity_nfc_writer">NfcWriterActivity</string>
     <string name="title_activity_nfc_receive">NfcReceiveActivity</string>
+    <string name="hint_write_nfc_message">Enter nfc message.</string>
+    <string name="hold_over_nfc_tag">Hold Over NFC Tag to Program.</string>
 
 </resources>

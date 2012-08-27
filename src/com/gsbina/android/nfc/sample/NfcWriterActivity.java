@@ -18,6 +18,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NfcWriterActivity extends Activity {
@@ -91,22 +92,32 @@ public class NfcWriterActivity extends Activity {
 			Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
 			String message = "";
-			if (writeTag(createNdefMessage(), detectedTag)) {
-				message = "Success: Wrote placeid to nfc tag";
-			} else {
-				message = "Write failed";
+			try {
+				if (writeTag(createNdefMessage(), detectedTag)) {
+					message = "Success: Wrote placeid to nfc tag";
+				} else {
+					message = "Write failed";
+				}
+			} catch (NullPointerException e) {
+				message = "Message is empty";
 			}
 			Toast.makeText(mSelf, message, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	private NdefMessage createNdefMessage() {
+		TextView messageView = (TextView) findViewById(R.id.nfc_message);
+		final String message = messageView.getText().toString();
+		if (message.isEmpty()) {
+			return null;
+		}
+
 		// NDEFRecordを生成
 		Charset utfEncoding = Charset.forName("UTF-8");
 		Locale locale = Locale.getDefault();
 
 		final byte[] langBytes = locale.getLanguage().getBytes(utfEncoding);
-		final byte[] textBytes = "Hello, NFC!".getBytes(utfEncoding);
+		final byte[] textBytes = message.getBytes(utfEncoding);
 		final int utfBit = 0;
 		final char status = (char) (utfBit + langBytes.length);
 
@@ -132,7 +143,11 @@ public class NfcWriterActivity extends Activity {
 	 *            タグ
 	 * @return 書き込みに成功した場合は true 、それ以外は false を返す
 	 */
-	public boolean writeTag(NdefMessage message, Tag tag) {
+	public boolean writeTag(NdefMessage message, Tag tag)
+			throws NullPointerException {
+		if (message == null) {
+			throw new NullPointerException();
+		}
 		int size = message.toByteArray().length;
 		Ndef ndef = Ndef.get(tag);
 		try {
